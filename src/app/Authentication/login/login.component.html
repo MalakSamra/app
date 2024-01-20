@@ -1,0 +1,27 @@
+<p>login works!</p>
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <div class="text-danger" style="margin-left: 45%;" *ngIf="showError">Wrong Credentials</div>
+          <form [formGroup]="form">
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <label for="UserName">Username</label>
+                <input type="text" formControlName="UserName" class="form-control" id="UserName" placeholder="UserName"/>
+                <div *ngIf= "UserName?.touched && UserName?.invalid" class="alert alert-danger">Please Enter your UserName</div>
+            </div>
+            <!-- Password input -->
+            <div class="form-outline mb-3">
+              <label for="Password">Password</label>
+              <input type="password" formControlName="Password" class="form-control" id="Password" placeholder="Password"/>
+              <div *ngIf= "Password?.touched && Password?.invalid" class="alert alert-danger">Please Enter your Password</div>
+            </div>
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <input type="submit" value="Log In"  class="form-control btn btn-primary " (click)="handleSubmit($event); getToken($event);"/>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>

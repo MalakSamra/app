@@ -1,0 +1,82 @@
+<div>
+    <table class="container table table-striped">
+        <thead>
+           <tr>
+            <th>
+                <button (click)="exportToExcel()">Export to excel</button>
+            </th>
+            <th>
+                <ng-template #content let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-basic-title">Add customer</h4>
+                        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <input type="text" placeholder="Customer Name" [(ngModel)]="newCst.name" name="name">
+                                    <input type="text" placeholder="Nationality" [(ngModel)]="newCst.nationality" name="nationality">
+                                    <input type="text" placeholder="Mobile Number" [(ngModel)]="newCst.mobile_Number" name="mobile_Number">
+                                    <input type="text" placeholder="Telephone 1" [(ngModel)]="newCst.telephone1" name="telephone1">
+                                    <input type="text" placeholder="Telephone 2" [(ngModel)]="newCst.telephone2" name="telephone2">
+                                    <input type="text" placeholder="Whatsapp Number" [(ngModel)]="newCst.whatsapp_Number" name="whatsapp_number">
+                                    <input type="text" placeholder="Email" [(ngModel)]="newCst.email" name="email">
+                                    <input type="text" placeholder="Address" [(ngModel)]="newCst.address" name="address">
+                                    <input type="text" placeholder="Description" [(ngModel)]="newCst.description" name="description">
+                                    <input type="text" placeholder="Job" [(ngModel)]="newCst.job" name="job">
+                                    <input type="text" placeholder="Salesman" [(ngModel)]="newCst.sales_man" name="salesman">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click'); addCst();">Save</button>
+                    </div>
+                </ng-template>
+                <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add Customer</button>
+            </th>
+            <th>
+                <button (click)="printTable()">Print</button>
+            </th>
+            <th>
+                <div class="row">
+                    <div class="col">
+                        <div ngbDropdown class="d-inline-block">
+                            <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                                Select Columns
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <div *ngFor="let column of tableColumns">
+                                    <div ngbDropdownItem>
+                                        <mat-checkbox class="example-margin" [value]="column" [(ngModel)]="selectedColumns[column]" (change)="onCheckboxChange(column)">{{column}}</mat-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th>
+           </tr> 
+           <tr>
+            <th *ngFor="let column of tableColumns">
+                {{ column }}
+            </th>
+            <th>
+                Actions
+            </th>
+           </tr>
+        </thead>
+        <tbody *ngFor="let cst of customers">
+            <tr>
+                <td *ngFor="let column of tableColumns">
+                    {{getColumnValue(cst,column)}}
+                </td>
+                <td>
+                    <button (click)="deleteCustomer(cst.id)">Delete</button>
+                    <button>Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
